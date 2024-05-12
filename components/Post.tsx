@@ -8,7 +8,6 @@ import ReactTimeago from "react-timeago";
 import { Button } from "./ui/button";
 import { Trash2 } from "lucide-react";
 import deletePostAction from "@/actions/deletePostAction";
-import Image from "next/image";
 import PostOptions from "./PostOptions";
 import { toast } from "sonner";
 
@@ -16,6 +15,9 @@ function Post({ post }: { post: IPostDocument }) {
   const { user } = useUser();
 
   const isAuthor = user?.id === post.user.userId;
+
+  // filter the url of the image until the first question mark
+  const imageUrl = post.imageUrl?.split("?")[0];
 
   return (
     <div className="bg-white rounded-md border">
@@ -78,13 +80,13 @@ function Post({ post }: { post: IPostDocument }) {
         <p className="px-4 pb-2 mt-2">{post.text}</p>
 
         {post?.imageUrl && (
-          <Image
-            src={post.imageUrl}
+          <img
+            src={imageUrl}
             alt="Post Image"
             width={500}
             height={500}
             className="w-full mx-auto"
-            priority
+            loading="lazy"
           />
         )}
       </div>

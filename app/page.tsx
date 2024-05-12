@@ -5,7 +5,7 @@ import Widget from "@/components/Widget";
 import { Button } from "@/components/ui/button";
 import connectDB from "@/mongodb/db";
 import { Post } from "@/mongodb/models/post";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 
 export const revalidate = 0;
 
@@ -23,9 +23,9 @@ export default async function Home() {
         <UserInformation posts={posts} />
         <SignedOut>
           <div className="flex flex-col justify-center items-center bg-white rounded-lg border py-4">
-            <p className="text-center text-gray-400 text-sm font-medium">
-              You are not signed in
-            </p>
+            <Button asChild variant="outline">
+              <SignInButton />
+            </Button>
             <h1 className="text-center text-lg font-semibold mt-2">
               Sign in to post
             </h1>
